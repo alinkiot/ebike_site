@@ -43,13 +43,13 @@ export default async function CategoryPage({
     prisma.category.findMany({ where: { type: "bike" }, orderBy: { order: "asc" } }),
     prisma.category.findUnique({ where: { slug: category } }),
     prisma.product.findMany({
-      where: { published: true, category: { slug: category } },
+      where: { published: true, category: { slug: category, type: "bike" } },
       include: { images: { orderBy: { order: "asc" }, take: 1 }, category: true },
       orderBy: getOrderBy(sort),
       skip: (currentPage - 1) * pageSize,
       take: pageSize,
     }),
-    prisma.product.count({ where: { published: true, category: { slug: category } } }),
+    prisma.product.count({ where: { published: true, category: { slug: category, type: "bike" } } }),
   ]);
 
   const totalPages = Math.ceil(total / pageSize);

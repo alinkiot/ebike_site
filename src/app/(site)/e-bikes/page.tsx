@@ -22,7 +22,10 @@ export default async function EBikesPage({
     prisma.product.findMany({
       where: {
         published: true,
-        ...(category ? { category: { slug: category } } : {}),
+        category: {
+          type: "bike",
+          ...(category ? { slug: category } : {}),
+        },
       },
       include: { images: { orderBy: { order: "asc" }, take: 1 }, category: true },
       orderBy: getOrderBy(sort),
