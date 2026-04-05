@@ -23,14 +23,14 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
 
   return (
     <Link href={href} className="group block">
-      <div className="relative overflow-hidden bg-gray-50 aspect-[3/2]">
+      <div className="relative overflow-hidden bg-gray-50 aspect-[4/5]">
         {hasValidImage ? (
           <Image
             src={image}
             alt={name}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             loading={loading ?? "lazy"}
             onError={() => setImageError(true)}
           />
@@ -45,6 +45,12 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
             />
           </div>
         )}
+        {/* Hover overlay with CTA */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-500 flex items-end justify-center pb-6">
+          <span className="bg-yellow-400 text-black text-xs font-bold tracking-widest uppercase px-6 py-2.5 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+            View Details
+          </span>
+        </div>
         {featured && (
           <span className="absolute top-3 left-3 bg-yellow-400 text-black text-xs px-2 py-1 tracking-widest uppercase font-semibold">
             Featured
@@ -71,9 +77,6 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
             <span className="text-sm font-semibold text-black">{formatPrice(price)}</span>
           )}
         </div>
-        <span className="mt-3 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 group-hover:opacity-60 transition-opacity">
-          Discover more
-        </span>
       </div>
     </Link>
   );

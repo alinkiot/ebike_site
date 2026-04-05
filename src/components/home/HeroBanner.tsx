@@ -45,17 +45,18 @@ export default function HeroBanner() {
         )}
       </div>
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/10 to-black/80" />
+      <div className="grain-overlay" />
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto animate-fade-in-up">
         <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-300 mb-4 opacity-0 animate-fade-in-up [animation-delay:200ms]">
           Deruiz Electric Bicycles
         </p>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up [animation-delay:400ms]">
+        <h1 className="font-serif-display text-6xl sm:text-7xl lg:text-8xl leading-tight mb-6 opacity-0 animate-fade-in-up [animation-delay:400ms]">
           This time,
           <br />
-          <span className="italic font-light">beyond</span>
+          <span className="italic">beyond</span>
         </h1>
         <p className="text-lg text-gray-200 mb-10 max-w-xl mx-auto leading-relaxed opacity-0 animate-fade-in-up [animation-delay:600ms]">
           Welcome to our community, Deruiz Ebikes, the green power. At Deruiz we build very modern ebikes, with an elegant look but still robust and stable. We want to give the customer the tools to go a little further than ever before.

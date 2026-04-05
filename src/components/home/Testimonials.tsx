@@ -23,7 +23,7 @@ export default function Testimonials({ testimonials }: { testimonials: Testimoni
   return (
     <section className="py-20 bg-black text-white">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-10">
+        <p className="font-serif-display text-2xl sm:text-3xl text-gray-400 mb-10 italic">
           What riders say
         </p>
         <div className="flex justify-center gap-1 mb-6">

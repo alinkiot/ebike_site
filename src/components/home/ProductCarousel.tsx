@@ -37,7 +37,7 @@ export default function ProductCarousel({ title, subtitle, products }: ProductCa
           {subtitle && (
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-2">{subtitle}</p>
           )}
-          <h2 className="text-3xl sm:text-4xl font-bold text-black">{title}</h2>
+          <h2 className="font-serif-display text-3xl sm:text-4xl text-black">{title}</h2>
         </div>
         <div className="hidden sm:flex gap-2">
           <button

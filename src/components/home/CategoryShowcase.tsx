@@ -14,7 +14,7 @@ export default function CategoryShowcase() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-2">Browse by type</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-black">Find your ride</h2>
+          <h2 className="font-serif-display text-3xl sm:text-4xl text-black">Find your ride</h2>
         </div>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {categories.map((cat) => (

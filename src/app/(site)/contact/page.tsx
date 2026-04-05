@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -28,7 +29,7 @@ export default function ContactPage() {
           {/* Info */}
           <div>
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-3">Get in touch</p>
-            <h1 className="text-4xl font-bold text-black mb-6">Contact Us</h1>
+            <h1 className="font-serif-display text-4xl text-black mb-6">Contact Us</h1>
             <p className="text-gray-600 leading-relaxed mb-10">
               Have a question about our bikes? Want to schedule a test ride? Looking for dealer partnership opportunities? We&apos;d love to hear from you.
             </p>
@@ -57,7 +58,7 @@ export default function ContactPage() {
           <div>
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full py-20 text-center">
-                <div className="text-4xl mb-4">✓</div>
+                <CheckCircle size={48} className="text-black mb-4" strokeWidth={1.5} />
                 <h3 className="text-xl font-bold mb-2">Message sent!</h3>
                 <p className="text-gray-500 text-sm">We&apos;ll get back to you within 24 hours.</p>
               </div>

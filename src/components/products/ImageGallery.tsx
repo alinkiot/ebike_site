@@ -79,7 +79,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-xs text-gray-400">🚲</span>
+                  <span className="text-xs text-gray-400">—</span>
                 </div>
               )}
             </button>

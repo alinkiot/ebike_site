@@ -39,7 +39,7 @@ export default async function EBikesPage({
         <RevealSection delay={0}>
           <div className="mb-10">
             <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-2">Our collection</p>
-            <h1 className="text-4xl font-bold text-black">Electric Bikes</h1>
+            <h1 className="font-serif-display text-4xl text-black">Electric Bikes</h1>
           </div>
         </RevealSection>
         <RevealSection delay={100}>

@@ -60,7 +60,7 @@ export default function BlogPreview({ posts }: { posts: BlogPost[] }) {
       <div className="flex items-end justify-between mb-10">
         <div>
           <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-400 mb-2">Latest news</p>
-          <h2 className="text-3xl sm:text-4xl font-bold text-black">From the journal</h2>
+          <h2 className="font-serif-display text-3xl sm:text-4xl text-black">From the journal</h2>
         </div>
         <Link href="/blog" className="hidden sm:inline-block text-xs font-semibold tracking-widest uppercase border-b border-black pb-0.5 hover:opacity-60 transition-opacity">
           View all
