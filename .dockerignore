@@ -4,4 +4,5 @@ node_modules
 *.db
 *.db-journal
 .env*
-prisma/dev.db
+# prisma/dev.db  # Comment this out, we need it in the build
+!prisma/dev.db
