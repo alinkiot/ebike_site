@@ -23,7 +23,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
 
   if (validImages.length === 0) {
     return (
-      <div className="aspect-square bg-gray-100 flex items-center justify-center">
+      <div className="relative aspect-square bg-gray-100 flex items-center justify-center">
         <Image
           src="/images/placeholder.svg"
           alt="No image available"

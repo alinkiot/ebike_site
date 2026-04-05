@@ -136,110 +136,109 @@ export default function Header({ categoryProducts }: HeaderProps) {
       </div>
 
       {/* Full-width Mega Menu */}
-      {activeDropdown && (
-        <div
-          className="absolute left-0 right-0 w-screen bg-white shadow-xl py-8"
-          onMouseEnter={cancelClose}
-          onMouseLeave={scheduleClose}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {activeDropdown === "Select" ? (
-              <div className="grid grid-cols-2 gap-0 min-h-[320px]">
-                {/* Left: story */}
-                <div className="pr-12 py-4 flex flex-col justify-between border-r border-gray-100">
-                  <div>
-                    <h3 className="text-lg font-bold text-black mb-4 tracking-wide">
-                      {navLinks[0].story?.heading}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed line-clamp-6">
-                      {navLinks[0].story?.text}
-                    </p>
+      <div
+        className={`absolute left-0 right-0 w-screen bg-white shadow-xl shadow-black/5 py-8 transition-all duration-200 ease-out transform ${activeDropdown ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-1 pointer-events-none'}`}
+        onMouseEnter={cancelClose}
+        onMouseLeave={scheduleClose}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {activeDropdown === "Select" ? (
+            <div className="grid grid-cols-2 gap-0 min-h-[320px]">
+              {/* Left: story */}
+              <div className="pr-12 py-4 flex flex-col justify-between border-r border-gray-100">
+                <div>
+                  <h3 className="text-lg font-bold text-black mb-4 tracking-wide">
+                    {navLinks[0].story?.heading}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-6">
+                    {navLinks[0].story?.text}
+                  </p>
+                  <Link
+                    href={navLinks[0].story?.readMoreHref ?? "/e-bikes/urban"}
+                    className="mt-4 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity"
+                    onClick={handleLinkClick}
+                  >
+                    Read more
+                  </Link>
+                </div>
+              </div>
+              {/* Right: showroom image */}
+              <div className="pl-8 py-4">
+                <div className="w-full h-[280px] overflow-hidden bg-gray-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://deruizebike.com/wp-content/uploads/2026/03/showroom-v2-2.webp"
+                    alt="Deruiz Showroom"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : activeDropdown === "E-Bikes" ? (
+            <div className="grid grid-cols-2 gap-8">
+              {/* Left: category list */}
+              <div className="py-2">
+                <div className="grid grid-cols-2 gap-1">
+                  {navLinks[1].categories?.map((cat) => (
                     <Link
-                      href={navLinks[0].story?.readMoreHref ?? "/e-bikes/urban"}
-                      className="mt-4 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity"
+                      key={cat.href}
+                      href={cat.href}
+                      className="px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-black transition-colors rounded"
+                      onMouseEnter={() => setHoveredCategorySlug(cat.slug)}
+                      onMouseLeave={() => setHoveredCategorySlug(null)}
                       onClick={handleLinkClick}
                     >
-                      Read more
+                      {cat.label}
                     </Link>
-                  </div>
+                  ))}
                 </div>
-                {/* Right: showroom image */}
-                <div className="pl-8 py-4">
-                  <div className="w-full h-[280px] overflow-hidden bg-gray-100">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="https://deruizebike.com/wp-content/uploads/2026/03/showroom-v2-2.webp"
-                      alt="Deruiz Showroom"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
+                <Link
+                  href={navLinks[1].href}
+                  className="mt-4 ml-3 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-60"
+                  onClick={handleLinkClick}
+                >
+                  View All E-Bikes
+                </Link>
               </div>
-            ) : activeDropdown === "E-Bikes" ? (
-              <div className="grid grid-cols-2 gap-8">
-                {/* Left: category list */}
-                <div className="py-2">
-                  <div className="grid grid-cols-2 gap-1">
-                    {navLinks[1].categories?.map((cat) => (
-                      <Link
-                        key={cat.href}
-                        href={cat.href}
-                        className="px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-black transition-colors rounded"
-                        onMouseEnter={() => setHoveredCategorySlug(cat.slug)}
-                        onMouseLeave={() => setHoveredCategorySlug(null)}
-                        onClick={handleLinkClick}
-                      >
-                        {cat.label}
-                      </Link>
-                    ))}
-                  </div>
-                  <Link
-                    href={navLinks[1].href}
-                    className="mt-4 ml-3 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-60"
-                    onClick={handleLinkClick}
-                  >
-                    View All E-Bikes
-                  </Link>
-                </div>
-                {/* Right: dynamic product preview */}
-                <div className="py-2">
-                  <Link
-                    href={panelHref}
-                    className="block group"
-                    onClick={handleLinkClick}
-                  >
-                    <div className="relative aspect-[4/3] overflow-hidden mb-3 bg-gray-100">
-                      {panelImage && (
-                        <Image
-                          key={panelImage}
-                          src={panelImage}
-                          alt={panelName ?? "E-Bikes"}
-                          fill
-                          sizes="(max-width: 1024px) 100vw, 50vw"
-                          className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      )}
-                    </div>
-                    {panelName && (
-                      <p className="text-sm font-semibold text-black mb-1">{panelName}</p>
+              {/* Right: dynamic product preview */}
+              <div className="py-2">
+                <Link
+                  href={panelHref}
+                  className="block group"
+                  onClick={handleLinkClick}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden mb-3 bg-gray-100">
+                    {panelImage && (
+                      <Image
+                        key={panelImage}
+                        src={panelImage}
+                        alt={panelName ?? "E-Bikes"}
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="eager"
+                      />
                     )}
-                    <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
-                      {panelTagline}
-                    </p>
-                    <span className="mt-2 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Learn more
-                    </span>
-                  </Link>
-                </div>
+                  </div>
+                  {panelName && (
+                    <p className="text-sm font-semibold text-black mb-1">{panelName}</p>
+                  )}
+                  <p className="text-xs text-gray-500 leading-relaxed line-clamp-2">
+                    {panelTagline}
+                  </p>
+                  <span className="mt-2 inline-block text-xs font-semibold tracking-widest uppercase text-black border-b border-black pb-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                    Learn more
+                  </span>
+                </Link>
               </div>
-            ) : null}
-          </div>
+            </div>
+          ) : null}
         </div>
-      )}
+      </div>
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-t">
+        <div className="lg:hidden bg-white border-t transition-all duration-200 ease-out">
           <nav className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
               <div key={link.label}>

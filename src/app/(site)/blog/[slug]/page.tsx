@@ -46,6 +46,18 @@ export default async function BlogPostPage({
         )}
         <h1 className="text-4xl font-bold text-black mb-6">{post.title}</h1>
         {post.excerpt && <p className="text-lg text-gray-500 mb-10 leading-relaxed">{post.excerpt}</p>}
+        {post.coverImage && (
+          <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg mb-10 bg-gray-100">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              sizes="100vw"
+              loading="eager"
+              className="object-cover"
+            />
+          </div>
+        )}
         <div
           className="prose prose-gray max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
@@ -66,6 +78,8 @@ export default async function BlogPostPage({
                         src={p.coverImage}
                         alt={p.title}
                         fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        loading="eager"
                         className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     ) : (

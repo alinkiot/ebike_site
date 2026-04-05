@@ -18,7 +18,7 @@ export default async function BlogPage() {
         {posts.length === 0 ? (
           <p className="text-gray-400 text-center py-20">No posts yet.</p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {posts.map((post) => (
               <Link key={post.id} href={`/blog/${post.slug}`} className="group">
                 <div className="relative aspect-[16/9] overflow-hidden bg-gray-100">
