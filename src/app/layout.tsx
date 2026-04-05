@@ -17,7 +17,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${poppins.variable} h-full`}>
+    <html lang="en" className={`${poppins.variable} h-full`} data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col font-[family-name:var(--font-poppins)] antialiased">
         {children}
       </body>

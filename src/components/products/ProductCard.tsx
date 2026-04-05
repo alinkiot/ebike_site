@@ -28,6 +28,7 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
             src={image}
             alt={name}
             fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             onError={() => setImageError(true)}
           />
@@ -37,6 +38,7 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
               src="/images/placeholder.svg"
               alt={name}
               fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
               className="object-contain p-8 opacity-50"
             />
           </div>

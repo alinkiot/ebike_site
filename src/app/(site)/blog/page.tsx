@@ -23,7 +23,7 @@ export default async function BlogPage() {
               <Link key={post.id} href={`/blog/${post.slug}`} className="group">
                 <div className="relative aspect-[16/9] overflow-hidden bg-gray-100">
                   {post.coverImage ? (
-                    <Image src={post.coverImage} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <Image src={post.coverImage} alt={post.title} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                   ) : (
                     <div className="absolute inset-0 bg-gray-200" />
                   )}

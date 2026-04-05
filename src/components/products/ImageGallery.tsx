@@ -28,6 +28,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
           src="/images/placeholder.svg"
           alt="No image available"
           fill
+          sizes="100vw"
           className="object-contain p-16 opacity-40"
         />
       </div>
@@ -42,6 +43,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
             src={validImages[currentActive].url}
             alt={validImages[currentActive].alt || "Product image"}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
             className="object-contain"
             priority
             onError={() => markImageError(validImages[currentActive].url)}
@@ -51,6 +53,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
             src="/images/placeholder.svg"
             alt="Image unavailable"
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 50vw"
             className="object-contain p-16 opacity-40"
           />
         )}
@@ -70,6 +73,7 @@ export default function ImageGallery({ images }: { images: ProductImage[] }) {
                   src={img.url}
                   alt={img.alt || ""}
                   fill
+                  sizes="80px"
                   className="object-cover"
                   onError={() => markImageError(img.url)}
                 />

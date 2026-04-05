@@ -12,6 +12,7 @@ export default function HeroBanner() {
           src="/images/hero/120-35.webp"
           alt="Deruiz Electric Bicycle"
           fill
+          sizes="100vw"
           className="object-cover opacity-60"
           priority
         />

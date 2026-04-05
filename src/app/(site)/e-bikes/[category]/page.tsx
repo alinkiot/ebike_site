@@ -65,8 +65,10 @@ export default async function CategoryPage({
               src="/images/products/sycxly-1500-917-mica-pro-ML-Bronze-Matt.webp"
               alt="Select Series"
               fill
+              sizes="100vw"
               className="object-cover opacity-30"
               priority
+              loading="eager"
             />
           </div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
@@ -133,7 +135,7 @@ export default async function CategoryPage({
                 <div className="flex animate-marquee gap-4 w-max">
                   {[...galleryImages, ...galleryImages].map((src, i) => (
                     <div key={i} className="relative flex-none w-72 h-48 overflow-hidden bg-gray-100">
-                      <Image src={src} alt="" fill className="object-cover" />
+                      <Image src={src} alt="" fill sizes="(max-width: 640px) 288px, (max-width: 1024px) 288px, 288px" className="object-cover" />
                     </div>
                   ))}
                 </div>
@@ -230,7 +232,9 @@ export default async function CategoryPage({
                   src="/images/products/sycxly-1500-917-dolomit-ML-Black-Mirage.webp"
                   alt="Dolomit Select"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
+                  loading="eager"
                 />
               </div>
             </div>

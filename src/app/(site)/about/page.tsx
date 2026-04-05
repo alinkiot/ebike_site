@@ -80,6 +80,7 @@ export default function AboutPage() {
               src="/images/products/dh-mica-pro-1.webp"
               alt="Mica Pro"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </div>
@@ -92,6 +93,7 @@ export default function AboutPage() {
                 src="/images/products/dh-dolomit-1.webp"
                 alt="Dolomit"
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
