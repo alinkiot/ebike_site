@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { Search, Menu, X } from "lucide-react";
 import type { CategoryWithFirstProduct } from "@/app/(site)/layout";
 
@@ -48,6 +49,7 @@ export default function Header({ categoryProducts }: HeaderProps) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [hoveredCategorySlug, setHoveredCategorySlug] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname = usePathname();
 
   // Build slug → first product map
   const categoryMap = new Map(
@@ -95,22 +97,33 @@ export default function Header({ categoryProducts }: HeaderProps) {
 
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-0">
-            {navLinks.map((link) => (
-              <div
-                key={link.label}
-                className="relative"
-                onMouseEnter={() => link.isMegaMenu ? openDropdown(link.label) : scheduleClose()}
-                onMouseLeave={scheduleClose}
-              >
-                <Link
-                  href={link.href}
-                  className="px-6 py-6 text-base font-bold tracking-wide text-black transition-colors hover:opacity-60 inline-block"
-                  onClick={handleLinkClick}
+            {navLinks.map((link) => {
+              // For mega menu links like "E-Bikes", only match exact root path
+              // For regular links, match prefix so /e-bikes/city still highlights E-Bikes in dropdown
+              const isExactMatch = pathname === link.href;
+              const isPrefixMatch = !link.isMegaMenu && link.href !== "/" && pathname.startsWith(link.href);
+              const isActive = isExactMatch || isPrefixMatch;
+              return (
+                <div
+                  key={link.label}
+                  className="relative"
+                  onMouseEnter={() => link.isMegaMenu ? openDropdown(link.label) : scheduleClose()}
+                  onMouseLeave={scheduleClose}
                 >
-                  {link.label}
-                </Link>
-              </div>
-            ))}
+                  <Link
+                    href={link.href}
+                    className={`px-6 py-6 text-base font-bold tracking-wide transition-colors inline-block ${
+                      isActive 
+                        ? "text-black underline underline-offset-8"
+                        : "text-black hover:opacity-60"
+                    }`}
+                    onClick={handleLinkClick}
+                  >
+                    {link.label}
+                  </Link>
+                </div>
+              );
+            })}
           </nav>
 
           {/* Icons */}
@@ -240,31 +253,46 @@ export default function Header({ categoryProducts }: HeaderProps) {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t transition-all duration-200 ease-out">
           <nav className="px-4 py-4 space-y-1">
-            {navLinks.map((link) => (
-              <div key={link.label}>
-                <Link
-                  href={link.href}
-                  className="block py-2 text-sm font-medium text-gray-900"
-                  onClick={handleLinkClick}
-                >
-                  {link.label}
-                </Link>
-                {link.isMegaMenu && link.categories && (
-                  <div className="pl-4 space-y-1">
-                    {link.categories.map((cat) => (
-                      <Link
-                        key={cat.href}
-                        href={cat.href}
-                        className="block py-1.5 text-sm text-gray-500"
-                        onClick={handleLinkClick}
-                      >
-                        {cat.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href || 
+                (link.href !== "/" && pathname.startsWith(link.href));
+              return (
+                <div key={link.label}>
+                  <Link
+                    href={link.href}
+                    className={`block py-2 text-sm font-medium ${
+                      isActive
+                        ? "text-black font-semibold"
+                        : "text-gray-900"
+                    }`}
+                    onClick={handleLinkClick}
+                  >
+                    {link.label}
+                  </Link>
+                  {link.isMegaMenu && link.categories && (
+                    <div className="pl-4 space-y-1">
+                      {link.categories.map((cat) => {
+                        const isCatActive = pathname === cat.href;
+                        return (
+                          <Link
+                            key={cat.href}
+                            href={cat.href}
+                            className={`block py-1.5 text-sm ${
+                              isCatActive
+                                ? "text-black font-semibold"
+                                : "text-gray-500"
+                            }`}
+                            onClick={handleLinkClick}
+                          >
+                            {cat.label}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             <div className="pt-2 border-t flex gap-4">
               <Link
                 href="/login"

@@ -5,6 +5,7 @@ import CategoryShowcase from "@/components/home/CategoryShowcase";
 import Testimonials from "@/components/home/Testimonials";
 import BlogPreview from "@/components/home/BlogPreview";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
+import RevealSection from "@/components/home/RevealSection";
 
 export default async function HomePage() {
   const [featuredProducts, bestsellerProducts, testimonials, blogPosts] = await Promise.all([
@@ -29,24 +30,40 @@ export default async function HomePage() {
   return (
     <>
       <HeroBanner />
-      <CategoryShowcase />
+      <RevealSection delay={0}>
+        <CategoryShowcase />
+      </RevealSection>
       {featuredProducts.length > 0 && (
-        <ProductCarousel
-          title="Featured Bikes"
-          subtitle="New arrivals"
-          products={featuredProducts}
-        />
+        <RevealSection delay={100}>
+          <ProductCarousel
+            title="Featured Bikes"
+            subtitle="New arrivals"
+            products={featuredProducts}
+          />
+        </RevealSection>
       )}
-      <WhyChooseUs />
+      <RevealSection delay={200}>
+        <WhyChooseUs />
+      </RevealSection>
       {bestsellerProducts.length > 0 && (
-        <ProductCarousel
-          title="Best Sellers"
-          subtitle="Most popular"
-          products={bestsellerProducts}
-        />
+        <RevealSection delay={300}>
+          <ProductCarousel
+            title="Best Sellers"
+            subtitle="Most popular"
+            products={bestsellerProducts}
+          />
+        </RevealSection>
       )}
-      {testimonials.length > 0 && <Testimonials testimonials={testimonials} />}
-      {blogPosts.length > 0 && <BlogPreview posts={blogPosts} />}
+      {testimonials.length > 0 && (
+        <RevealSection delay={400}>
+          <Testimonials testimonials={testimonials} />
+        </RevealSection>
+      )}
+      {blogPosts.length > 0 && (
+        <RevealSection delay={500}>
+          <BlogPreview posts={blogPosts} />
+        </RevealSection>
+      )}
     </>
   );
 }

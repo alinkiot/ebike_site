@@ -21,19 +21,19 @@ export default function HeroBanner() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto">
-        <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-300 mb-4">
+      <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto animate-fade-in-up">
+        <p className="text-xs font-semibold tracking-[0.3em] uppercase text-gray-300 mb-4 opacity-0 animate-fade-in-up [animation-delay:200ms]">
           Deruiz Electric Bicycles
         </p>
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-tight mb-6 opacity-0 animate-fade-in-up [animation-delay:400ms]">
           This time,
           <br />
           <span className="italic font-light">beyond</span>
         </h1>
-        <p className="text-lg text-gray-200 mb-10 max-w-xl mx-auto leading-relaxed">
+        <p className="text-lg text-gray-200 mb-10 max-w-xl mx-auto leading-relaxed opacity-0 animate-fade-in-up [animation-delay:600ms]">
           Welcome to our community, Deruiz Ebikes, the green power. At Deruiz we build very modern ebikes, with an elegant look but still robust and stable. We want to give the customer the tools to go a little further than ever before.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up [animation-delay:800ms]">
           <Link
             href="/e-bikes"
             className="inline-block bg-yellow-400 text-black px-8 py-3.5 text-sm font-semibold tracking-widest uppercase hover:bg-yellow-300 transition-colors"
