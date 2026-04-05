@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useRef, useCallback } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { Search, Menu, X } from "lucide-react";
 import type { CategoryWithFirstProduct } from "@/app/(site)/layout";
 
@@ -48,8 +48,47 @@ export default function Header({ categoryProducts }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [hoveredCategorySlug, setHoveredCategorySlug] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Array<{id: string, name: string, href: string}>>([]);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
+
+  // Search products
+  const handleSearch = async () => {
+    if (!query.trim()) {
+      setResults([]);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+      setResults(data.products || []);
+    } catch (err) {
+      console.error('Search failed:', err);
+      setResults([]);
+    }
+  };
+
+  // Close search and navigate
+  const handleSelect = (href: string) => {
+    setSearchOpen(false);
+    setQuery("");
+    setResults([]);
+    router.push(href);
+  };
+
+  // Close on escape
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSearchOpen(false);
+    };
+    if (searchOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [searchOpen]);
 
   // Build slug → first product map
   const categoryMap = new Map(
@@ -128,7 +167,10 @@ export default function Header({ categoryProducts }: HeaderProps) {
 
           {/* Icons */}
           <div className="flex items-center gap-4">
-            <button className="hidden lg:block text-black hover:opacity-60 transition-colors">
+            <button 
+              className="hidden lg:block text-black hover:opacity-60 transition-colors"
+              onClick={() => setSearchOpen(!searchOpen)}
+            >
               <Search size={20} />
             </button>
             <Link href="/login" className="hidden lg:block text-black hover:opacity-60 transition-colors">
@@ -248,6 +290,62 @@ export default function Header({ categoryProducts }: HeaderProps) {
           ) : null}
         </div>
       </div>
+
+      {/* Search Modal */}
+      {searchOpen && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-50 flex items-start justify-center p-4 pt-20 transition-opacity duration-200"
+          onClick={() => setSearchOpen(false)}
+        >
+          <div 
+            className="bg-white w-full max-w-2xl rounded-lg p-6"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-black">Search products</h3>
+              <button 
+                onClick={() => setSearchOpen(false)}
+                className="text-gray-400 hover:text-black transition-colors"
+              >
+                <X size={24} />
+              </button>
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  handleSearch();
+                }}
+                onKeyDown={(e) => e.key === 'Enter' && results.length > 0 && handleSelect(results[0].href)}
+                placeholder="Search for bikes, accessories..."
+                className="w-full px-4 py-3 border border-gray-200 rounded focus:outline-none focus:border-black"
+                autoFocus
+              />
+              <Search size={20} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
+            </div>
+            {results.length > 0 && (
+              <div className="mt-4 max-h-64 overflow-y-auto border border-gray-100 rounded divide-y divide-gray-100">
+                {results.map((product) => (
+                  <button
+                    key={product.id}
+                    onClick={() => handleSelect(product.href)}
+                    className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
+                  >
+                    <p className="text-sm font-medium text-black">{product.name}</p>
+                  </button>
+                ))}
+              </div>
+            )}
+            {query.trim() && results.length === 0 && (
+              <div className="mt-4 py-6 text-center text-sm text-gray-500">
+                No products found
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Mobile Menu */}
       {mobileOpen && (

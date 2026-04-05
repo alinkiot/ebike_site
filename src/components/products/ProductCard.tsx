@@ -13,9 +13,10 @@ interface ProductCardProps {
   image?: string | null;
   href: string;
   featured?: boolean;
+  loading?: "eager" | "lazy";
 }
 
-export default function ProductCard({ name, tagline, price, salePrice, image, href, featured }: ProductCardProps) {
+export default function ProductCard({ name, tagline, price, salePrice, image, href, featured, loading }: ProductCardProps) {
   const [imageError, setImageError] = useState(false);
   
   const hasValidImage = image && !imageError;
@@ -30,6 +31,7 @@ export default function ProductCard({ name, tagline, price, salePrice, image, hr
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            loading={loading ?? "lazy"}
             onError={() => setImageError(true)}
           />
         ) : (

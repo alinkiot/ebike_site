@@ -135,7 +135,7 @@ export default async function CategoryPage({
                 <div className="flex animate-marquee gap-4 w-max">
                   {[...galleryImages, ...galleryImages].map((src, i) => (
                     <div key={i} className="relative flex-none w-72 h-48 overflow-hidden bg-gray-100">
-                      <Image src={src} alt="" fill sizes="(max-width: 640px) 288px, (max-width: 1024px) 288px, 288px" className="object-cover" />
+                      <Image src={src} alt="" fill sizes="(max-width: 640px) 288px, (max-width: 1024px) 288px, 288px" className="object-cover" loading="eager" />
                     </div>
                   ))}
                 </div>

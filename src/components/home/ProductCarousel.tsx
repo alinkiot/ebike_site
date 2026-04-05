@@ -74,6 +74,7 @@ export default function ProductCarousel({ title, subtitle, products }: ProductCa
               image={product.images[0]?.url}
               href={`/e-bikes/${product.category.slug}/${product.slug}`}
               featured={product.featured}
+              loading="eager"
             />
           </div>
         ))}

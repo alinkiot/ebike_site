@@ -2,23 +2,50 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export default function HeroBanner() {
+  const [videoError, setVideoError] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+
+  // Timeout: if video doesn't load in 3 seconds, fallback to image
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!videoLoaded && !videoError) {
+        setVideoError(true);
+      }
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, [videoLoaded, videoError]);
+
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden bg-black">
-      {/* Background image from deruizebike.com */}
-      <div className="absolute inset-0">
+      {/* Always keep placeholder image visible until video loaded */}
+      <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/images/hero/120-35.webp"
+          src="/images/hero/index.png"
           alt="Deruiz Electric Bicycle"
           fill
           sizes="100vw"
-          className="object-cover opacity-60"
+          className={`object-cover opacity-60 animate-slow-zoom ${videoLoaded ? 'hidden' : 'block'}`}
           priority
         />
+        {!videoError && (
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-50"
+            onError={() => setVideoError(true)}
+            onLoadedData={() => setVideoLoaded(true)}
+          >
+            <source src="/videos/hero-cycling.mp4" type="video/mp4" />
+          </video>
+        )}
       </div>
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
 
       {/* Content */}
       <div className="relative z-10 text-center text-white px-4 max-w-3xl mx-auto animate-fade-in-up">
